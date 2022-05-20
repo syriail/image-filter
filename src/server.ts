@@ -36,7 +36,7 @@ import fs from "fs";
     console.info("URL of the image to filter: ",image_url)
     if(!image_url) res.status(400).send("Please provide the public url of the images")
     try{
-      const filteredImagePath = await filterImageFromURL(image_url.toString())   
+      const filteredImagePath: string = await filterImageFromURL(image_url.toString())   
       res.sendFile(filteredImagePath)   
       res.status(200).sendFile(filteredImagePath,async(err)=>{
          await deleteLocalFiles([filteredImagePath])
@@ -46,7 +46,7 @@ import fs from "fs";
       })
     }catch(error){
       console.error("Error caught while processing the image", error)
-      res.status(400).send("Please provide a valid public url of the image")
+      res.status(422).send("The image could not be processed")
     }
   })
   
